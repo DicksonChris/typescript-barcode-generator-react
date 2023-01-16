@@ -1,0 +1,37 @@
+/* 
+  This is a custom radio button that uses a hidden radio button 
+  and a label to create a custom button that looks like a card. 
+  The label is styled with a shadow and an orange border to 
+  indicate that it is selected. 
+*/
+.radio-with-label {
+  @apply absolute opacity-0;
+}
+.label-for-radio {
+  @apply cursor-pointer;
+}
+.label-for-radio > .card {
+  @apply bg-base-300 bg-opacity-50 rounded-lg shadow-sm; 
+  transition: all 0.2s ease-in-out;
+}
+.label-for-radio:hover > .card {
+  @apply bg-base-300 bg-opacity-75;
+}
+.label-for-radio:active > .card {
+  @apply bg-base-300 bg-opacity-90;
+}
+
+/* 
+  The following styles are applied to the selected card.
+ */
+.radio-with-label:checked + .label-for-radio > .card {
+  @apply shadow-2xl;
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: orange;
+}
+
+
+.radio-with-label:not(:checked) + .label-for-radio > .card {
+  @apply bg-gray-900 bg-opacity-20;
+}
