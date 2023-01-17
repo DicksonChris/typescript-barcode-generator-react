@@ -1,6 +1,8 @@
 import React from 'react'
 import DrawerWrapper from './components/drawer/DrawerWrapper'
 import SelectContent from './SelectContent'
+import Window from './components/window/Window'
+import { WindowProvider } from './components/window/WindowContext'
 
 const Layout = () => {
   return (
@@ -60,7 +62,11 @@ const Layout = () => {
       {/* NAVBAR END */}
       {/* CONTENT START */}
       <div className="xl:container mx-auto">
-        <SelectContent />
+        <WindowProvider>
+          <Window>
+            <SelectContent />
+          </Window>
+        </WindowProvider>
       </div>
       {/* CONTENT END */}
     </DrawerWrapper>
