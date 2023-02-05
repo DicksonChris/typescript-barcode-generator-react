@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Navbar = () => {
   return (
-    <div className="navbar bg-base-300 sticky top-0 z-50 mb-8">
+    <div className="navbar bg-base-300 sticky top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <label htmlFor="my-drawer" className="btn btn-ghost btn-square drawer-button">

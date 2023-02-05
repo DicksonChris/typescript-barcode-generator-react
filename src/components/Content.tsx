@@ -5,7 +5,7 @@ import { WindowContainer } from './window/WindowContainer'
 export function Content() {
   return (
     <div className="xl:container mx-auto">
-      <WindowContainer>
+      <WindowContainer windowId='select-content'>
         <SelectContent />
       </WindowContainer>
     </div>

@@ -1,69 +1,42 @@
-import '../../styles/window.css'
-import closeIcon from '../../assets/close-icon.svg'
-import { useDrag } from 'react-dnd'
-import { ItemTypes } from '../../ItemTypes'
-import { CSSProperties, FC, ReactNode, useEffect } from 'react'
+import React, { useRef } from 'react';
+import '../../styles/window.css';
+import closeIcon from '../../assets/close-icon.svg';
+import { CSSProperties, FC, ReactNode, useEffect } from 'react';
+import useDragger from '../../hooks/useDragger';
+import useResizeFixer from '../../hooks/useResizeFixer';
 
 export interface WindowProps {
-  id: string
-  left: number
-  top: number
-  preview?: boolean
-  children: React.ReactNode
+  windowId: string;
+  children: React.ReactNode;
 }
 
 const windowDraggableStyle: CSSProperties = {
   cursor: 'move',
   width: '100%',
-}
+};
 
 const windowStyle: CSSProperties = {
   position: 'absolute',
-  width: '100%',
-}
+  maxWidth: '90vw',
+};
 
-const role = 'Window'
-
-export const Window: FC<WindowProps> = ({ id, left, top, preview, children }) => {
-  const [{ opacity, isDragging }, drag, dragPreview] = useDrag(() => {
-    return {
-      type: ItemTypes.WINDOW,
-      item: { id, left, top },
-      
-      previewOptions: {
-        captureDraggingState: true,
-      },
-
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-        opacity: monitor.isDragging() ? 0 : 1,
-      }),
-    }
-  }, [id, left, top])
-
-  if (isDragging) {
-    return <div ref={dragPreview} />
-  }
-
+export const Window: FC<WindowProps> = ({ windowId, children }) => {
+  const targetRef = useRef<HTMLDivElement>(null);
+  useDragger(windowId);
+  useResizeFixer(windowId);
   return (
-    <div
-      ref={dragPreview}
-      className="window relative"
-      style={{ ...windowStyle, left, top, opacity }}
-    >
+    <div id={windowId} className="window relative" style={windowStyle}>
       <div
-        ref={drag}
-        role={role}
-        style={{ ...windowDraggableStyle }}
+        id={windowId + '-handle'}
+        style={windowDraggableStyle}
         className="window-top flex justify-end bg-accent-focus h-12 rounded-t-xl items-center"
       >
-        <div className="flex-1"/>
+        <div className="flex-1" />
         <button className="flex-0 mx-4 btn btn-xxs btn-ghost btn-circle">
           <img src={closeIcon} alt="close window" />
         </button>
       </div>
       {children}
     </div>
-  )
-}
-
+  );
+};
