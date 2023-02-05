@@ -25,7 +25,7 @@ const Card = ({ title, imgSrc, imgAlt, index }: CardProps) => {
   )
 }
 
-const SelectContent = () => {
+export const SelectContent = () => {
   const cardsData = [
     {
       title: 'Barcode Image',
@@ -73,5 +73,3 @@ const SelectContent = () => {
     </div>
   )
 }
-
-export default SelectContent

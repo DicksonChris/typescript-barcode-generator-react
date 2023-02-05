@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import Layout from './Layout'
+import { DrawerWrapper } from './components/drawer/DrawerWrapper'
+import { Navbar } from './components/Navbar'
+import { Content } from './components/Content'
 import './styles/global.css'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <Layout/>
+    <DrawerWrapper>
+      <Navbar />
+      <Content />
+    </DrawerWrapper>
   )
 }
 

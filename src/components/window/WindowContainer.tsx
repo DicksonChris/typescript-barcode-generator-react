@@ -3,10 +3,9 @@ import { ItemTypes } from '../../ItemTypes'
 import { DragPreviewImage, useDrop } from 'react-dnd'
 import type { DragItem } from './interfaces'
 import type { XYCoord } from 'react-dnd'
-import Window from './Window'
+import { Window } from './Window'
 
 export interface WindowContainerProps {
-  hideSourceOnDrag: boolean
   children: ReactNode
 }
 
@@ -22,9 +21,9 @@ const windowContainerStyle: CSSProperties = {
   position: 'relative',
 }
 
-export const WindowContainer = ({ hideSourceOnDrag, children }: WindowContainerProps) => {
+export const WindowContainer = ({ children }: WindowContainerProps) => {
   const [windows, setWindows] = useState<ContainerState['windows']>({
-    windowState: {
+    selectProjectWindowState: {
       top: 0,
       left: 0,
       children,
@@ -58,7 +57,7 @@ export const WindowContainer = ({ hideSourceOnDrag, children }: WindowContainerP
       {Object.keys(windows).map((key) => {
         const { left, top, children } = windows[key]
         return (
-          <Window key={key} id={key} left={left} top={top} hideSourceOnDrag={hideSourceOnDrag}>
+          <Window key={key} id={key} left={left} top={top}>
             {children}
           </Window>
         )
