@@ -1,5 +1,5 @@
 import React from 'react'
-import './styles/selectContent.css'
+import '../styles/selectContent.css'
 
 type CardProps = {
   title: string
@@ -44,9 +44,9 @@ export const SelectContent = () => {
     },
   ]
   return (
-    <div className="bg-base-300">
+    <div className="bg-base-300 pb-4 rounded-b-2xl">
       <div className="flex justify-center mb-8">
-        <h1 className="text-4xl font-bold">Choose Project Format</h1>
+        <h1 className="text-4xl font-bold select-none">Choose Project Format</h1>
       </div>
       <div className="flex flex-wrap justify-center mb-8">
         {cardsData.map((cardData, index) => (
@@ -67,7 +67,7 @@ export const SelectContent = () => {
           </React.Fragment>
         ))}
       </div>
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center">
         <button className="btn btn-primary">Create Project</button>
       </div>
     </div>

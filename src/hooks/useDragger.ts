@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { getViewportWidth } from '../utils/getViewportWidth'
 
 type Coords = {
   startX: number
@@ -18,6 +19,10 @@ function useDragger(id: string): void {
   })
 
   useEffect(() => {
+    // check breakpoint and early return if equal to 'sm'
+    const breakpoint = getViewportWidth()
+    if (breakpoint === 'sm') return
+
     // Get the target element using the passed id
     const target = document.getElementById(id)
     if (!target) throw new Error("Element with given id doesn't exist")
@@ -33,14 +38,14 @@ function useDragger(id: string): void {
     // Fix the initial width of the target element
     target.style.width = `${target.offsetWidth}px`
     // Center the target element horizontally and set its initial y position
-    target.style.top = '12px'
+    target.style.top = '76px'
     target.style.left = `${container.offsetWidth / 2 - target.offsetWidth / 2}px`
 
     const onMouseDown = (event: MouseEvent) => {
       event.preventDefault()
       isClicked.current = true
-      coords.current.startX = event.clientX
-      coords.current.startY = event.clientY
+      coords.current.startX = event.clientX - target.offsetLeft
+      coords.current.startY = event.clientY - target.offsetTop
     }
 
     const onMouseUp = (event: MouseEvent) => {
@@ -54,8 +59,8 @@ function useDragger(id: string): void {
       if (!isClicked.current) return
       event.preventDefault()
 
-      const nextX = event.clientX - coords.current.startX + coords.current.lastX
-      const nextY = event.clientY - coords.current.startY + coords.current.lastY
+      const nextX = event.clientX - coords.current.startX
+      const nextY = event.clientY - coords.current.startY
 
       target.style.top = `${nextY}px`
       target.style.left = `${nextX}px`
